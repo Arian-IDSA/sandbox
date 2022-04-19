@@ -1,230 +1,66 @@
-<p align="center">
-<img src="ids-messaging-services-b140.PNG">
-</p>
+# How To Build Data Spaces?
+## Introduction
+The following content is meant to support everyone who wants to either build IDS components or implement and/or contribute to the existing open source components.
+It will link you to relevant sources and will provide guidance on your way. 
 
-<p align="center">
-<a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/blob/development/LICENSE">License</a> •
-<a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/issues">Issues</a> •
-<a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/discussions">Discussions</a> •
-<a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/wiki">Wiki</a> •
-<a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/blob/development/CONTRIBUTING.md">Contributing</a> •
-<a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/blob/development/CODE_OF_CONDUCT.md">Code of Conduct</a>
-</p>
+The Knowledge Base (a.k.a. "How to Build Data Spaces?") is the store of information that relies on IDS expertise, that is meant to support building IDS components and contribute to the existing open source components. A five-step approach is depicted here to sort the great amount of information and documentation in a structured manner. Each step contains links to the relevant information and resources that might be helpful in the process of establishing data spaces.
 
-# IDS-Messaging-Services
+Since this documentation relies on the IDS expertise and experience of everyone involved, please feel free **to contribute to it.** 
+In case you are unable to locate the information you are looking for, please:
++ Open an issue that points to this topic. 
++ Add a section, link, or whatever that would fill this gap.
++ Have a look at the open issues and try to fix them.
 
-All participants of IDS-based data ecosystems must be able to communicate with each other. Even though different participants may have different implementations of IDS-Connectors, they all need to send and receive IDS-Messages. This commonality is addressed by the IDS-Messaging-Services, which provide a lightweight implementation for IDS-Message-Handling. The IDS-Messaging-Services offer open-source functionality for sending IDS-Messages as well as interfaces for processing received IDS-Messages. The architecture relies on a modern modular architecture-approach so that the functionalities needed for communication in a data ecosystems can be easily selected specific to the infrastructure components present in the data ecosystems. In addition, advanced functionalities are implemented, such as checking the validity of the Dynamic-Attribute-Token of incoming messages.
+If you are interested in contributing to this document, please check the detailed information on [how to contribute](/how-to-build-data-spaces/CONTRIBUTING.md) to this documentation.
 
-## Overview: Versioning
+## What are the business value and benefits provided by data spaces?
+Data spaces are the clean rooms of data, the perfect ecosystem for a secure and sovereign data sharing, exchange, and value creation. Here are some examples of the benefits and business value that comes from entering these rooms:
 
-The IDS-Messaging-Service follows the SemanticVersioning system.
++ Data being considered the new oil, there must be a place to exploit its value, and this is one of the benefits provided by data spaces: endless scenarios, and opportunities to get the most value out of everyone´s data.  
 
-## Overview: IDS-Infomodel-Artifacts
++ Data spaces are the perfect lounge, not just for secure data interactions, but for networking and ecosystem growth. All the players that join this clean rooms have a shared objective, and therefore, it is easier to connect with others. 
 
-The following IDS-Infomodel-Artifacts are used as dependencies.
++ Data spaces can be called “clean rooms” because there is control inside them. Security is another benefit that comes from entering these rooms, since every member´s operational environment and components must be certified, in order to access these spaces. This is how trust between players is ensured and secure data exchange is made available to everyone. 
 
-| Group | Artifact | Version |
-| ------ | ------ | ------ | 
-| de.fraunhofer.iais.eis.ids.infomodel | java | 4.2.7 |
-| de.fraunhofer.iais.eis.ids | infomodel-serializer | 4.2.8 |
-| de.fraunhofer.iais.eis.ids | interaction | 4.2.7 |
+## What are the advantages of being an IDSA Member?
+IDS is poised to become the backbone of our future data economy, indispensable to any enterprise that collects, manages or shares any kind of data. Organizations of every type and size will benefit from gaining early knowledge of and access to IDS. Your involvement will put you at the forefront of shaping the future and gaining early access to IDS concepts and technology that can directly advance your business. Benefits of membership include:
 
-## Overview: Supported IDS-Message protocols
++ Learning IDS concepts
 
-The following transmission options for IDS-Messages are currently supported:
-- HTTP Multipart
++ Access to research insights and cross-pollination between research and industry
 
-Currently being worked on:
-- IDS-LDP / REST
++ Technology, certification and networking events
 
-## Overview: IDS-Infrastructure-Components
++ Support for implementation and adoption of IDS-certified products and services
 
-Supported out-of-the-box connectivity to the following IDS-Infrastructure-Components with advanced functionality:
-- Other IDS-Connectors
-- IDS-AppStore
-- IDS-Broker
-- IDS-ClearingHouse
-- IDS-DAPS
-- IDS-ParIS
-- IDS-VoCol
++ Involvement in member-driven projects that become use cases and success stories for your business
 
-## Quick Start: Technical requirements
-
-- The IDS-Messaging-Services use asymmetric encryption concepts and requires public and private key of the Connector-Instance.
-- The IDS-Messaging-Services utilize contents of the IDSConfiguration Model which is part of the IDS Information Model. Therefor a *configmodel.json*-file should exist to load the configuration of the IDS-Connector. For example, the configuration file should reference the key- and trust-store.
-- The IDS-Messaging-Services assume a SpringBoot project and therefore require various specific SpringBoot functionalities.
-- [Settings in the Application Properties](https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/wiki/09.-Settings:-Connector-Configuration)
-
-## Quick Start: Integration into a Maven-Java-Project
-
-### Step 1
-
-The Java-modules provided by the project are accessible as Maven artifact dependencies. These artifacts are hosted on Fraunhofer ISST's Nexus. In order for the artifacts to be found, the Fraunhofer ISST Nexus repository must be added as a repository in the project's pom:
-
-```xml
-<repositories>
-    <repository>
-        <id>isst-nexus-public</id>
-        <name>isst-public</name>
-        <url>https://mvn.ids.isst.fraunhofer.de/nexus/repository/ids-public/</url>
-    </repository>
-</repositories>
-```
-
-### Step 2
-
-The current module artifact structure of the IDS-Messaging-Services is built along the different IDS-Infrastructure-Components, which are currently supported with advanced functionalities out-of-the-box.
-
-Modules with basic functions:
-- core
-- messaging
-
-Modules for different infrastructure components:
-- appstore
-- broker
-- clearinghouse
-- paris
-- vocol
-
-In general, the core-module artifact is the main module artifact with the configuration of the IDS-Messaging-Services. The messaging-module artifact provides all needed functionalities to send and receive IDS-Messages. The messaging-module artifact in turn holds the core-module artifact as a dependency. So it is enough to specify the messaging-module artifact in the project's pom and the functionality of the core-module artifact will be loaded automatically.
-
-The individual module-artifacts of the IDS-Infrastructure-Components in turn require functionalities of the messaging-module artifact and have it therefore linked as a dependency in each module case. This simplified architecture means that it is sufficient, for example, to integrate the broker-module artifact into the project's pom, which automatically makes the functionalities of the messaging- and thus also the core-module artifact available.
-
-So, if an IDS-Connector should be implemented, in whose data ecosystem an IDS-Broker occurs as IDS-Infrastructure-Component, the following entry in the project's pom is completely sufficient as dependencies to get all needed functionalities to exchange messages with the IDS-Broker with advanced functionalities, without the need to use the full-module:
-
-```xml
-<dependency>
-    <groupId>de.fraunhofer.ids.messaging</groupId>
-    <artifactId>broker</artifactId>
-    <version>IDS_MESSAGING_SERVICES_VERSION</version>
-</dependency>
-```
-Of course, the entry IDS_MESSAGING_SERVICES_VERSION must be exchanged with the desired version number of the IDS-Messaging-Services artifact.
+[Learn more on IDSA Website](https://internationaldataspaces.org/we/members/)
 
 
-## Quick Start: First steps towards use
+# Building Data Spaces
+On the sections below, you will find the appropriate resources and links that provide technical information/documentation on each step for developing data spaces, based on [goals of IDSA](../GOALS.md). As is known, every development journey is an individual one. So your starting point may differ based on your knowledge, as well as the steps you have to take. Please feel free to check the forthcoming chapters to find relevant information and documentation.
 
-For a detailed description of the usage of the different IDS-Messaging-Services artifacts see the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/wiki">Wiki</a> pages of this project.
+In general, a typical data space development journey consists of the following stages. Please feel free to start from any of these steps, based on how familiar you are with IDS Technologies. 
 
-Following is a first step guide to using the IDS-Messaging-Services after including the required dependencies in the project's pom.
+[1. Gather Knowledge](/how-to-build-data-spaces/1-Gather-Knowledge.md)
 
-### Step 3
+[2. Define Your Use Case](/how-to-build-data-spaces/2-Define-Your-Use-Case.md)
 
-Add the ``@ComponentScan`` annotation to the SpringBoot-Application and scan for the IDS-Messaging-Services packages. This can be implemented, for example, as follows using wildcards:
-```java
-@ComponentScan({
-        "de.fraunhofer.ids.*",
-        "de.fraunhofer.ids.messaging.*"
-})
-```
+[3. Build Components](/how-to-build-data-spaces/3-Build-Components.md)
 
-### Step 4
+[4. Prepare for Go-Live](/how-to-build-data-spaces/4-Prepare-for-Go-Live.md)
 
-Start implementing Message-Handler e.g. as instances of RequestMessage which your IDS-Connector should be able to process as received IDS-Message. An example for a MessageHandler is given below. The following message-handler receives the arrived message and sends the received message payload directly back to the sending IDS-Connector. This can be customized as desired and serves only as an example.
+[5. Share](/how-to-build-data-spaces/5-Share.md)
 
-```java
-@Component
-@SupportedMessageType(RequestMessageImpl.class)
-public class RequestMessageHandler implements MessageHandler<RequestMessageImpl> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestMessageHandler.class);
 
-    private final Connector connector;
-    private final DapsTokenProvider provider;
+# Looking for Best Practices?
+Currently, IDS does not yet have an overarching existing ecosystem. Until now, mainly use cases between individual companies have been addressed
+In the following diagram, these are located in evolutionary stage **I**.
+In the meantime, use cases of evolution stage **II** are becoming increasingly established. The [Mobility Data Space](https://www.mobility-data-space.de/) and [Catena-X](https://www.handelsblatt.com/27129464.html) are particularly worthy of mention here, as are other [IDS Communities](https://internationaldataspaces.org/make/communities/) and [Projects](https://internationaldataspaces.org/make/projects/).
 
-    public RequestMessageHandler(final ConfigContainer container,
-                                 final DapsTokenProvider provider) {
-        this.connector = container.getConnector();
-        this.provider = provider;
-    }
+![IDS ecosystems evolution](./images/IDS_business_ecosystems_evolution.png)
+(Boris Otto, 2020)
 
-    /**
-     * This message implements the logic that is needed to handle the message. As it just returns the input as string
-     * the messagePayload-InputStream is converted to a String.
-     *
-     * @param requestMessage The RequestMessageImpl (part one of the multipart message) containing interesting meta data.
-     * @param messagePayload The received payload that has to be handled here
-     * @return received payload as string, wrapped inside a @{@link BodyResponse}
-     */
-    @Override
-    public MessageResponse handleMessage(final RequestMessageImpl requestMessage,
-                                         final MessagePayload messagePayload) {
-        LOGGER.info("Received a RequestMessage!");
-
-        try {
-            final var receivedPayload = IOUtils.toString(messagePayload.getUnderlyingInputStream(), StandardCharsets.UTF_8.name()) + " - from RequestMessage!";
-
-            final var message = new ResponseMessageBuilder()
-                    ._securityToken_(provider.getDAT())
-                    ._correlationMessage_(requestMessage.getId())
-                    ._issued_(IdsMessageUtils.getGregorianNow())
-                    ._issuerConnector_(connector.getId())
-                    ._modelVersion_(this.connector.getOutboundModelVersion())
-                    ._senderAgent_(connector.getId())
-                    .build();
-
-            return BodyResponse.create(message, receivedPayload);
-        } catch (Exception e) {
-            return ErrorResponse.withDefaultHeader(RejectionReason.INTERNAL_RECIPIENT_ERROR,
-                    e.getMessage(),
-                    connector.getId(),
-                    connector.getOutboundModelVersion());
-        }
-    }
-}
-```
-
-### Step 5
-
-Sending IDS-Messages: Now that messages can be received, the functionality for sending IDS-messages is shown with an example.
-
-The following is an example without connection to an IDS-Infrastructure-Component. The idsHttpService can be accessed at any time to send a message to any recipient. For the messaging to the supported IDS-Infrastructure-Components, however, ready-made methods are already available in the respective modules, so that the specific message itself does not have to be created. The following is a minimal example, which assumes that only the messaging-module is present.
-
-Building the IDS-message for a specific message type:
-```java
-Message message = new RequestMessageBuilder()
-            ._issued_(IdsMessageUtils.getGregorianNow())
-            ._modelVersion_(baseConnector.getOutboundModelVersion())
-            ._issuerConnector_(baseConnector.getId())
-            ._senderAgent_(baseConnector.getId())
-            ._securityToken_(tokenProvider.getDAT())
-            .build();
-
-MultipartBody body = this.buildRequestBody(InfomodelMessageBuilder.messageWithString(message, payload));
-final var response = idsHttpService.sendAndCheckDat(body, targetUri);
-```
-
-The above is a standard example of HTTP-Multipart using the services' sendAndCheckDat()-method. In addition, there are other methods like a plain send()-Method which will not check the DAT of the received response to the message. 
-
-The sendAndCheckDat() returns a Map<String, String> where, for example, response.get("header") and response.get("payload") can be used to access the message-fields.
-
-For extended instructions and info on the other modules, see the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/wiki">GitHub-Wiki</a>.
-
-## Other: Log-Codes
-
-Log-codes exist for different log-levels. They allow easy search for the code location that produced the log.
-
-Syntax: IMS-XY-L-1234, shortened to: IMSXYL1234
- - IMS = IDS-Messaging-Services
- - XY = Subsystem Module (CO Core, AP AppStore, BR Broker, CL ClearingHouse, ME Messaging, PA Paris, VO Vocol)
- - L = Event Severity (E Error, W Warn, D Debug)
- - 1234 = Log identifier
- 
-Will e.g. print as [code=(IMSCOE0001)]: IDS-Messaging-Services Core-Module Error 0001.
-
-No log-code will be printed for log-info level.
-
-## Other: Project-Wiki
-
-This project has a <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/wiki">GitHub-Wiki</a> where more details about the individual java-modules and their functionalities are documented.
-
-## Other: Contributing
-
-You are very welcome to contribute to this project when you find a bug, want to suggest an improvement, or have an idea for a useful feature. Please find a set of guidelines at the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/blob/main/CONTRIBUTING.md">CONTRIBUTING-Guideline</a> and the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT-Guideline</a>.
-
-## Other: Questions and suggestions
-
-For any questions or suggestions please refer to the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/issues">GitHub-Issues</a> or the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/discussions">GitHub-Discussion</a> area.
-
-## Other: License
-
-This project is licensed under the Apache License 2.0 - see the <a href="https://github.com/International-Data-Spaces-Association/IDS-Messaging-Services/blob/main/LICENSE">LICENSE</a> for details.
+On the IDSA website some use cases are described, which can be used as a guideline:
+[https://internationaldataspaces.org/make/use-cases-overview/](https://internationaldataspaces.org/make/use-cases-overview/)
